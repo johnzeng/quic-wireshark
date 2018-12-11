@@ -9,8 +9,8 @@ do
     f.f_quic_real_DCIL = ProtoField.uint8 ("quic.DCIL","Dst Connection ID Len after cal")
     f.f_quic_real_SCIL = ProtoField.uint8 ("quic.SCIL","Src Connection ID Len after cal")
     f.f_quic_SCIL = ProtoField.uint8 ("quic.SCIL","Src Connection ID Len", base.DEC, nil, 0x0f)
-    f.f_quic_SCI = ProtoField.uint32 ("quic.SCI","Src Connection ID")
-    f.f_quic_DCI = ProtoField.uint32 ("quic.DCI","Dst Connection ID")
+    f.f_quic_SCI = ProtoField.bytes("quic.SCI","Src Connection ID")
+    f.f_quic_DCI = ProtoField.bytes("quic.DCI","Dst Connection ID")
 
     function p_quic.dissector(tvb, pinfo, tree)
         pinfo.cols.protocol = "QUIC/HTTP3.0"
@@ -52,5 +52,5 @@ do
 
     -- Register the dissector
     local udp_encap_table = DissectorTable.get("udp.port")
-    udp_encap_table:add(6162,p_quic)
+    udp_encap_table:add(6121,p_quic)
 end
